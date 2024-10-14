@@ -8,7 +8,7 @@ pipeline {
             steps{
                 // mvn test
                 sh "mvn test"
-                slackSend channel: 'youtubejenkins', message: 'Job Started'
+               // slackSend channel: 'youtubejenkins', message: 'Job Started'
                 
             }
             
@@ -28,10 +28,10 @@ pipeline {
             
         }
         stage("Deploy on Prod"){
-             input {
-                message "Should we continue?"
-                ok "Yes we Should"
-            }
+            //  input {
+            //     message "Should we continue?"
+            //     ok "Yes we Should"
+            // }
             
             steps{
                 // deploy on container -> plugin
@@ -45,11 +45,11 @@ pipeline {
         }
         success{
             echo "========pipeline executed successfully ========"
-             slackSend channel: 'youtubejenkins', message: 'Success'
+             //slackSend channel: 'youtubejenkins', message: 'Success'
         }
         failure{
             echo "========pipeline execution failed========"
-             slackSend channel: 'youtubejenkins', message: 'Job Failed'
+             //slackSend channel: 'youtubejenkins', message: 'Job Failed'
         }
     }
 }
