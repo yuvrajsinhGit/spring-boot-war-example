@@ -8,7 +8,7 @@ pipeline {
             steps{
                 // mvn test
                 sh "mvn test"
-                slackSend channel: 'harsh', message: 'job started ' 
+                slackSend channel: 'test1', message: 'job status fine' 
                 
             }
             
@@ -23,7 +23,7 @@ pipeline {
         stage("Deploy on Test"){
             steps{
                 // deploy on container -> plugin
-                deploy adapters: [tomcat9(credentialsId: 'admin123', path: '', url: 'http://13.127.241.151:8081')], contextPath: '/maven', war: '**/*.war'
+                deploy adapters: [tomcat9(credentialsId: 'tomcattest', path: '', url: 'http://13.126.184.12:8082')], contextPath: 'tomcat', war: '**/*.war'
               
             }
             
@@ -36,7 +36,7 @@ pipeline {
             
             steps{
                 // deploy on container -> plugin
-                deploy adapters: [tomcat9(credentialsId: 'admin123', path: '', url: 'http://13.127.241.151:8081')], contextPath: '/maven', war: '**/*.war'
+                deploy adapters: [tomcat9(credentialsId: 'tomcattest', path: '', url: 'http://13.126.184.12:8082')], contextPath: 'tomcat', war: '**/*.war'
             }
         }
     }
@@ -46,11 +46,11 @@ pipeline {
         }
         success{
             echo "========pipeline executed successfully ========"
-             slackSend channel: 'harsh', message: 'Success'
+             slackSend channel: 'test1', message: 'Success'
         }
         failure{
             echo "========pipeline execution failed========"
-             slackSend channel: 'harsh', message: 'Job Failed'
+             slackSend channel: 'test1', message: 'Job Failed'
         }
     }
 }
